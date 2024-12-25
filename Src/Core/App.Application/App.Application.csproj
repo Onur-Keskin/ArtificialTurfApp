@@ -1,0 +1,28 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="Features\FootballFieds\Create\" />
+    <Folder Include="Features\FootballFieds\Delete\" />
+    <Folder Include="Features\FootballFieds\Dto\" />
+    <Folder Include="Features\FootballFieds\Update\" />
+    <Folder Include="Features\Reservations\Create\" />
+    <Folder Include="Features\Reservations\Delete\" />
+    <Folder Include="Features\Reservations\Dto\" />
+    <Folder Include="Features\Reservations\Update\" />
+    <Folder Include="Features\Users\Create\" />
+    <Folder Include="Features\Users\Delete\" />
+    <Folder Include="Features\Users\Dto\" />
+    <Folder Include="Features\Users\Update\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\App.Domain\App.Domain.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -7,9 +7,12 @@ namespace App.Domain.Entities
         public string Name { get; set; } = default!;
         public string Location { get; set; } = default!;
         public decimal PricePerHour { get; set; }
-        public bool IsAvailable { get; set; }              
+        public bool IsAvailable { get; set; }  
+        public int TownId { get; set; }
+        public int CityId { get; set; }
         public ICollection<Reservation> Reservations { get; set; } // Navigation property
         public Town Town { get; set; }
+        public City City { get; set; }
         public DateTime Created { get; set; }
         public DateTime? Updated { get; set; }
     }

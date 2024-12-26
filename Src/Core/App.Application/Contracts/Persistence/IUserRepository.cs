@@ -6,5 +6,6 @@ namespace App.Application.Contracts.Persistence
     {
         Task<User> GetByUsername(string username);
         Task<User> GetUserByEmail(string email);
+        Task<User> GetUserWithReservations(int id);
     }
 }

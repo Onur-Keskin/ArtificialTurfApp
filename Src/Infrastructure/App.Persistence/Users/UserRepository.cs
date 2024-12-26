@@ -15,5 +15,10 @@ namespace App.Persistence.Users
         {
             return await context.Users.FirstOrDefaultAsync(u => u.Email == email);
         }
+
+        public Task<User> GetUserWithReservations(int id)
+        {
+            return context.Users.Include(x => x.Reservations).FirstOrDefaultAsync(x => x.Id == id);
+        }
     }
 }

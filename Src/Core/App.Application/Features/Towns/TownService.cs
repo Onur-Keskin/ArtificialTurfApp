@@ -71,13 +71,13 @@ namespace App.Application.Features.Towns
 
             return ServiceResult<TownDto>.Success(townAsDto)!;
         }
-        public async Task<ServiceResult<List<TownWithFieldsDto>>> GetTownWithFieldsAsync(int id)
+        public async Task<ServiceResult<TownWithFieldsDto>> GetTownWithFieldsAsync(int id)
         {
             var town = await townRepository.GetTownWithFields(id);
 
-            var townWithFieldsAsDto = mapper.Map<List<TownWithFieldsDto>>(town);
+            var townWithFieldsAsDto = mapper.Map<TownWithFieldsDto>(town);
 
-            return ServiceResult<List<TownWithFieldsDto>>.Success(townWithFieldsAsDto);
+            return ServiceResult<TownWithFieldsDto>.Success(townWithFieldsAsDto);
         }
 
         public async Task<ServiceResult> UpdateTownAsync(UpdateTownRequest request)

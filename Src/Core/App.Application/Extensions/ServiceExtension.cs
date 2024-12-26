@@ -1,4 +1,4 @@
-﻿using App.Application.Contracts.Persistence;
+﻿using App.Application.Features.Cities;
 using App.Application.Features.FootballFieds;
 using App.Application.Features.Reservations;
 using App.Application.Features.Towns;
@@ -20,7 +20,7 @@ namespace App.Application.Extensions
             services.AddScoped<IFootballFieldService, FootballFieldService>();
             services.AddScoped<IReservationService, ReservationService>();
             services.AddScoped<ITownService, TownService>();
-            //services.AddScoped<ILoginService, LoginService>();
+            services.AddScoped<ICityService, CityService>();
             //services.AddScoped<IRegisterService, RegisterService>();
             //services.AddScoped<IUserService, UserService>();
 

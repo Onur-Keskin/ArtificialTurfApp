@@ -1,4 +1,10 @@
-﻿using App.Domain.Options;
+﻿using App.Application.Contracts.Persistence;
+using App.Domain.Options;
+using App.Persistence.Cities;
+using App.Persistence.FootballFields;
+using App.Persistence.Reservations;
+using App.Persistence.Towns;
+using App.Persistence.Users;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -23,11 +29,14 @@ namespace App.Persistence.Extensions
                 //options.AddInterceptors(new AuditDbContextInterceptor());
             });
 
-            //services.AddScoped<IProductRepository, ProductRepository>();
-            //services.AddScoped<ICategoryRepository, CategoryRepository>();
-            //services.AddScoped(typeof(IGenericRepository<,>), typeof(GenericRepository<,>));
-            //services.AddScoped<IUnitOfWork, UnitOfWork>();
-            //services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IFootballFieldRepository,FootballFieldRepository>();
+            services.AddScoped<IReservationRepository,ReservationRepository>();
+            services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<ICityRepository,CityRepository>();
+            services.AddScoped<ITownRepository,TownRepository>();
+
+            services.AddScoped(typeof(IGenericRepository<,>), typeof(GenericRepository<,>));
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
 
             return services;
         }

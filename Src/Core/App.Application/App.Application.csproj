@@ -7,18 +7,22 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Features\FootballFieds\Create\" />
-    <Folder Include="Features\FootballFieds\Delete\" />
-    <Folder Include="Features\FootballFieds\Dto\" />
-    <Folder Include="Features\FootballFieds\Update\" />
-    <Folder Include="Features\Reservations\Create\" />
-    <Folder Include="Features\Reservations\Delete\" />
-    <Folder Include="Features\Reservations\Dto\" />
-    <Folder Include="Features\Reservations\Update\" />
-    <Folder Include="Features\Users\Create\" />
-    <Folder Include="Features\Users\Delete\" />
-    <Folder Include="Features\Users\Dto\" />
-    <Folder Include="Features\Users\Update\" />
+    <Folder Include="Features\Cities\Create\" />
+    <Folder Include="Features\Cities\Delete\" />
+    <Folder Include="Features\Cities\Dto\" />
+    <Folder Include="Features\Cities\Update\" />
+    <Folder Include="Features\Towns\Create\" />
+    <Folder Include="Features\Towns\Delete\" />
+    <Folder Include="Features\Towns\Dto\" />
+    <Folder Include="Features\Towns\Update\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="13.0.1" />
+    <PackageReference Include="FluentValidation" Version="11.11.0" />
+    <PackageReference Include="FluentValidation.AspNetCore" Version="11.3.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="2.2.0" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.0" />
   </ItemGroup>
 
   <ItemGroup>

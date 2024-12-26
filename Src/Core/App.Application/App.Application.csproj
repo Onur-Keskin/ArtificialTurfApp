@@ -11,10 +11,6 @@
     <Folder Include="Features\Cities\Delete\" />
     <Folder Include="Features\Cities\Dto\" />
     <Folder Include="Features\Cities\Update\" />
-    <Folder Include="Features\Towns\Create\" />
-    <Folder Include="Features\Towns\Delete\" />
-    <Folder Include="Features\Towns\Dto\" />
-    <Folder Include="Features\Towns\Update\" />
   </ItemGroup>
 
   <ItemGroup>

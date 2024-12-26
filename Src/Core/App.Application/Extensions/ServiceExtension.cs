@@ -1,6 +1,7 @@
 ﻿using App.Application.Contracts.Persistence;
 using App.Application.Features.FootballFieds;
 using App.Application.Features.Reservations;
+using App.Application.Features.Towns;
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Mvc;
@@ -18,7 +19,7 @@ namespace App.Application.Extensions
             
             services.AddScoped<IFootballFieldService, FootballFieldService>();
             services.AddScoped<IReservationService, ReservationService>();
-            //services.AddScoped<ITokenService, TokenService>();
+            services.AddScoped<ITownService, TownService>();
             //services.AddScoped<ILoginService, LoginService>();
             //services.AddScoped<IRegisterService, RegisterService>();
             //services.AddScoped<IUserService, UserService>();

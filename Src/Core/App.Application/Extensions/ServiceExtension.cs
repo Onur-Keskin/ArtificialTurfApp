@@ -2,6 +2,7 @@
 using App.Application.Features.FootballFieds;
 using App.Application.Features.Reservations;
 using App.Application.Features.Towns;
+using App.Application.Features.Users;
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Mvc;
@@ -21,8 +22,9 @@ namespace App.Application.Extensions
             services.AddScoped<IReservationService, ReservationService>();
             services.AddScoped<ITownService, TownService>();
             services.AddScoped<ICityService, CityService>();
+            services.AddScoped<IUserService, UserService>();
             //services.AddScoped<IRegisterService, RegisterService>();
-            //services.AddScoped<IUserService, UserService>();
+
 
             services.AddFluentValidationAutoValidation();
             services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());

@@ -30,12 +30,10 @@ namespace App.Persistence.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("CityId")
-                        .HasColumnType("int");
-
                     b.Property<string>("CityName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
 
                     b.Property<DateTime>("Created")
                         .HasColumnType("datetime2");
@@ -45,7 +43,7 @@ namespace App.Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("City");
+                    b.ToTable("Cities");
                 });
 
             modelBuilder.Entity("App.Domain.Entities.FootballField", b =>
@@ -106,11 +104,12 @@ namespace App.Persistence.Migrations
                     b.Property<DateTime>("EndTime")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("FieldId")
-                        .HasColumnType("int");
-
                     b.Property<int>("FootballFieldId")
                         .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("StartTime")
                         .HasColumnType("datetime2");
@@ -152,12 +151,10 @@ namespace App.Persistence.Migrations
                     b.Property<DateTime>("Created")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("TownId")
-                        .HasColumnType("int");
-
                     b.Property<string>("TownName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
 
                     b.Property<DateTime?>("Updated")
                         .HasColumnType("datetime2");
@@ -166,7 +163,7 @@ namespace App.Persistence.Migrations
 
                     b.HasIndex("CityId");
 
-                    b.ToTable("Town");
+                    b.ToTable("Towns");
                 });
 
             modelBuilder.Entity("App.Domain.Entities.User", b =>

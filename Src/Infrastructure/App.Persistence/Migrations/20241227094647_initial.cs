@@ -12,19 +12,18 @@ namespace App.Persistence.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "City",
+                name: "Cities",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    CityId = table.Column<int>(type: "int", nullable: false),
-                    CityName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CityName = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: false),
                     Created = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Updated = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_City", x => x.Id);
+                    table.PrimaryKey("PK_Cities", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -46,24 +45,23 @@ namespace App.Persistence.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Town",
+                name: "Towns",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    TownId = table.Column<int>(type: "int", nullable: false),
-                    TownName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    TownName = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: false),
                     CityId = table.Column<int>(type: "int", nullable: false),
                     Created = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Updated = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Town", x => x.Id);
+                    table.PrimaryKey("PK_Towns", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Town_City_CityId",
+                        name: "FK_Towns_Cities_CityId",
                         column: x => x.CityId,
-                        principalTable: "City",
+                        principalTable: "Cities",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -86,9 +84,9 @@ namespace App.Persistence.Migrations
                 {
                     table.PrimaryKey("PK_FootballFields", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_FootballFields_Town_TownId",
+                        name: "FK_FootballFields_Towns_TownId",
                         column: x => x.TownId,
-                        principalTable: "Town",
+                        principalTable: "Towns",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -99,7 +97,7 @@ namespace App.Persistence.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    FieldId = table.Column<int>(type: "int", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     UserId = table.Column<int>(type: "int", nullable: false),
                     StartTime = table.Column<DateTime>(type: "datetime2", nullable: false),
                     EndTime = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -141,8 +139,8 @@ namespace App.Persistence.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Town_CityId",
-                table: "Town",
+                name: "IX_Towns_CityId",
+                table: "Towns",
                 column: "CityId");
         }
 
@@ -159,10 +157,10 @@ namespace App.Persistence.Migrations
                 name: "Users");
 
             migrationBuilder.DropTable(
-                name: "Town");
+                name: "Towns");
 
             migrationBuilder.DropTable(
-                name: "City");
+                name: "Cities");
         }
     }
 }

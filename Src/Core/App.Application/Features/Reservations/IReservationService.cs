@@ -9,9 +9,9 @@ namespace App.Application.Features.Reservations
     {
         Task<ServiceResult<List<ReservationDto>>> GetAllReservationsAsync();
         Task<ServiceResult<ReservationDto>> GetReservationByIdAsync(int id);
-        Task<ServiceResult<ReservationDto>> GetReservationsByUserId(int userId);
+        Task<ServiceResult<ReservationDto>> GetReservationsByUserId(GetReservationsByUserIdRequest request);
         Task<ServiceResult<CreateReservationResponse>> AddReservationAsync(CreateReservationRequest request);
         Task<ServiceResult> UpdateFieldAsync(UpdateReservationRequest request);
-        Task<ServiceResult> DeleteFieldAsync(DeleteReservationRequest request);
+        Task<ServiceResult> DeleteReservationAsync(DeleteReservationRequest request);
     }
 }

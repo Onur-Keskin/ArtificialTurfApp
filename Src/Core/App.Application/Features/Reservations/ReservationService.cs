@@ -30,7 +30,7 @@ namespace App.Application.Features.Reservations
             return ServiceResult<CreateReservationResponse>.SuccessAsCreated(new CreateReservationResponse(reservation.Id), $"api/reservations/{reservation.Id}");
         }
 
-        public async Task<ServiceResult> DeleteFieldAsync(DeleteReservationRequest request)
+        public async Task<ServiceResult> DeleteReservationAsync(DeleteReservationRequest request)
         {
             var reservation = await reservationRepository.GetByIdAsync(request.Id);
 
@@ -72,9 +72,9 @@ namespace App.Application.Features.Reservations
             return ServiceResult<ReservationDto>.Success(reservationAsDto)!;
         }
 
-        public async Task<ServiceResult<ReservationDto>> GetReservationsByUserId(int userId)
+        public async Task<ServiceResult<ReservationDto>> GetReservationsByUserId(GetReservationsByUserIdRequest request)
         {
-            var reservation = await reservationRepository.GetByIdAsync(userId);
+            var reservation = await reservationRepository.GetByIdAsync(request.UserId);
 
             if (reservation is null)
             {

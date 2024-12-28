@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace App.Persistence.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20241227094647_initial")]
+    [Migration("20241227141916_initial")]
     partial class initial
     {
         /// <inheritdoc />
@@ -37,6 +37,9 @@ namespace App.Persistence.Migrations
                         .IsRequired()
                         .HasMaxLength(150)
                         .HasColumnType("nvarchar(150)");
+
+                    b.Property<int>("CityPlateNumber")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("Created")
                         .HasColumnType("datetime2");

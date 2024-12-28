@@ -18,6 +18,7 @@ namespace App.Persistence.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     CityName = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: false),
+                    CityPlateNumber = table.Column<int>(type: "int", nullable: false),
                     Created = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Updated = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },

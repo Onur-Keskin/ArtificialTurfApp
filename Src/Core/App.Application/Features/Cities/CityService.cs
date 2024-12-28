@@ -32,7 +32,7 @@ namespace App.Application.Features.Cities
             return ServiceResult<CreateCityResponse>.SuccessAsCreated(new CreateCityResponse(city.Id), $"api/towns/{city.Id}");
         }
 
-        public async Task<ServiceResult> DeleteTownAsync(DeleteCityRequest request)
+        public async Task<ServiceResult> DeleteCityAsync(DeleteCityRequest request)
         {
             var city = await cityRepository.GetByIdAsync(request.Id);
 

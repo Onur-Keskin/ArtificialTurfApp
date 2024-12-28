@@ -1,3 +1,3 @@
 ﻿namespace App.Application.Features.Cities.Dto;
-public record CityDto(int Id,string Name);
+public record CityDto(int Id,string CityName,int CityPlateNumber);
 

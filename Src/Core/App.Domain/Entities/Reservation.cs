@@ -8,7 +8,7 @@ namespace App.Domain.Entities
         public int UserId { get; set; } // Foreign key to User
         public DateTime StartTime { get; set; }
         public DateTime EndTime { get; set; }
-        public decimal TotalPrice { get; set; }
+        public int HourDuration { get; set; }
         public int FootballFieldId { get; set; }
         public FootballField FootballField { get; set; } = default!;
         public User User { get; set; } = default!;

@@ -1,8 +1,4 @@
-﻿using App.Application.Features.Towns.Create;
-using App.Application.Features.Towns.Delete;
-using App.Application.Features.Towns.Dto;
-using App.Application.Features.Towns.Update;
-using App.Application.Features.Users.Create;
+﻿using App.Application.Features.Users.Create;
 using App.Application.Features.Users.Delete;
 using App.Application.Features.Users.Dto;
 using App.Application.Features.Users.Update;

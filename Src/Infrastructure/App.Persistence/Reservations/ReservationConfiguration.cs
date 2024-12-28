@@ -9,7 +9,12 @@ namespace App.Persistence.Reservations
         public void Configure(EntityTypeBuilder<Reservation> builder)
         {
             builder.HasKey(x => x.Id);
-            builder.Property(x => x.TotalPrice).IsRequired().HasColumnType("decimal(18,2)");
+            builder.Property(x => x.HourDuration).IsRequired();
+
+            builder.HasOne(r => r.FootballField)
+                .WithMany(f => f.Reservations)
+                .HasForeignKey(r => r.FootballFieldId)
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

@@ -20,7 +20,7 @@ namespace App.Application.Features.Towns
             CreateMap<UpdateTownRequest, Town>().ForMember(dest => dest.TownName, opt => opt.MapFrom(src => src.TownName.ToLowerInvariant()));
             CreateMap<DeleteTownRequest, Town>().ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id));
 
-            CreateMap<Town, TownWithFieldsDto>().ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
+            CreateMap<Town, TownWithBusinessesDto>().ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
                     .ForMember(dest => dest.TownName, opt => opt.MapFrom(src => src.TownName))
                     .ForMember(dest => dest.CityId, opt => opt.MapFrom(src => src.CityId));
         }

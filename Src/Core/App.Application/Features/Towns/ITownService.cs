@@ -13,7 +13,7 @@ namespace App.Application.Features.Towns
     {
         Task<ServiceResult<List<TownDto>>> GetAllTownsAsync();
         Task<ServiceResult<TownDto>> GetTownByIdAsync(int id);
-        Task<ServiceResult<TownWithFieldsDto>> GetTownWithFieldsAsync(int id);
+        Task<ServiceResult<TownWithBusinessesDto>> GetTownWithBusinessesAsync(int id);
         Task<ServiceResult<CreateTownResponse>> AddTownAsync(CreateTownRequest request);
         Task<ServiceResult> UpdateTownAsync(UpdateTownRequest request);
         Task<ServiceResult> DeleteTownAsync(DeleteTownRequest request);

@@ -4,6 +4,6 @@ namespace App.Application.Contracts.Persistence
 {
     public interface ITownRepository : IGenericRepository<Town,int>
     {
-        Task<Town?> GetTownWithFields(int townId);
+        Task<Town?> GetTownWithBusinesses(int townId);
     }
 }

@@ -1,6 +1,8 @@
 ﻿using App.Application.Contracts.Persistence;
 using App.Domain.Options;
+using App.Persistence.Business;
 using App.Persistence.Cities;
+using App.Persistence.FieldSituations;
 using App.Persistence.FootballFields;
 using App.Persistence.Reservations;
 using App.Persistence.Towns;
@@ -29,7 +31,9 @@ namespace App.Persistence.Extensions
                 //options.AddInterceptors(new AuditDbContextInterceptor());
             });
 
+            services.AddScoped<IBusinessRepository, BusinessRepository>();
             services.AddScoped<IFootballFieldRepository,FootballFieldRepository>();
+            services.AddScoped<IFieldSituationRepository, FieldSituationRepository>();
             services.AddScoped<IReservationRepository,ReservationRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<ICityRepository,CityRepository>();

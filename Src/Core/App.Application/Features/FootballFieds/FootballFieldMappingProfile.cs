@@ -13,9 +13,8 @@ namespace App.Application.Features.FootballFieds
         {
             CreateMap<FootballField, FootballFieldDto>().ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
                     .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
-                    .ForMember(dest => dest.PricePerHour, opt => opt.MapFrom(src => src.PricePerHour))
-                    .ForMember(dest => dest.IsAvailable, opt => opt.MapFrom(src => src.IsAvailable))
-                    .ForMember(dest => dest.TownId, opt => opt.MapFrom(src => src.TownId)).ReverseMap();
+                    .ForMember(dest => dest.HourlyPricePerPerson, opt => opt.MapFrom(src => src.HourlyPricePerPerson))
+                    .ForMember(dest => dest.BusinessId, opt => opt.MapFrom(src => src.BussinessId)).ReverseMap();
 
             CreateMap<CreateFootballFieldRequest, FootballField>().ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name.ToLowerInvariant()));
             CreateMap<UpdateFootbaalFieldRequest, FootballField>().ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name.ToLowerInvariant()));

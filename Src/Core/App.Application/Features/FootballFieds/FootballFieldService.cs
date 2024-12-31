@@ -50,7 +50,7 @@ namespace App.Application.Features.FootballFieds
 
             if (footballFields is null)
             {
-                return ServiceResult<List<FootballFieldDto?>>.Fail("Football fields not found");
+                return ServiceResult<List<FootballFieldDto?>>.Fail("Saha bulunamadı");
             }
 
             var footballFieldsAsDto = mapper.Map<List<FootballFieldDto>>(footballFields);
@@ -71,6 +71,16 @@ namespace App.Application.Features.FootballFieds
 
             return ServiceResult<FootballFieldDto>.Success(footballFieldAsDto)!;
         }
+
+        public async Task<ServiceResult<FootballFieldWithSituationsDto>> GetFieldWithSituationsAsync(int id)
+        {
+            var footballField = await footballFieldRepository.GetFootballFieldWithSituations(id);
+
+            var footballFieldWithSituationsAsDto = mapper.Map<FootballFieldWithSituationsDto>(footballField);
+
+            return ServiceResult<FootballFieldWithSituationsDto>.Success(footballFieldWithSituationsAsDto);
+        }
+
         public async Task<ServiceResult> UpdateFieldAsync(UpdateFootbaalFieldRequest request)
         {
             var isFieldNameExist = await footballFieldRepository.AnyAsync(x => x.Name == request.Name && x.Id != request.Id);

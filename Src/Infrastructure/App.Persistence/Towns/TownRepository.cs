@@ -6,9 +6,9 @@ namespace App.Persistence.Towns
 {
     public class TownRepository(AppDbContext context) : GenericRepository<Town, int>(context), ITownRepository
     {
-        public Task<Town?> GetTownWithFields(int townId)
+        public Task<Town?> GetTownWithBusinesses(int townId)
         {
-            return context.Towns.Include(x=>x.FootballFields).FirstOrDefaultAsync(x => x.Id == townId);
+            return context.Towns.Include(x=>x.Businesses).FirstOrDefaultAsync(x => x.Id == townId);
         }
     }
 }

@@ -7,7 +7,7 @@ namespace App.Domain.Entities
         public string TownName { get; set; } = default!;
         public int CityId { get; set; }
         public City City { get; set; } = default!;
-        public List<FootballField>? FootballFields { get; set; }
+        public List<Business>? Businesses { get; set; }
         public DateTime Created { get; set; }
         public DateTime? Updated { get; set; }
     }

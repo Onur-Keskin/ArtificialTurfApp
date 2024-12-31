@@ -16,9 +16,9 @@ namespace App.API.Controllers
         public async Task<IActionResult> GetTownById(int id)
         => CreateActionResult(await townService.GetTownByIdAsync(id));
 
-        [HttpGet("{id:int}/fields")]
-        public async Task<IActionResult> GetTownWithFields(int id)
-            => CreateActionResult(await townService.GetTownWithFieldsAsync(id));
+        [HttpGet("{id:int}/business")]
+        public async Task<IActionResult> GetTownWithBusinesses(int id)
+            => CreateActionResult(await townService.GetTownWithBusinessesAsync(id));
 
         [HttpPost]
         public async Task<IActionResult> CreateTown(CreateTownRequest request)

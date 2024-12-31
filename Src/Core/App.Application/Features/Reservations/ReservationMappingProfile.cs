@@ -14,9 +14,8 @@ namespace App.Application.Features.Reservations
             CreateMap<Reservation, ReservationDto>().ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
                     .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
                     .ForMember(dest => dest.UserId, opt => opt.MapFrom(src => src.UserId))
-                    .ForMember(dest => dest.StartDate, opt => opt.MapFrom(src => src.StartTime))
-                    .ForMember(dest => dest.EndDate, opt => opt.MapFrom(src => src.EndTime))
-                    .ForMember(dest => dest.HourDuration, opt => opt.MapFrom(src => src.HourDuration));
+                    .ForMember(dest => dest.IsCancel, opt => opt.MapFrom(src => src.IsCancel))
+                    .ForMember(dest => dest.FieldSituationId, opt => opt.MapFrom(src => src.FieldSituationId));
 
             CreateMap<CreateReservationRequest, Reservation>().ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name.ToLowerInvariant()));
             CreateMap<UpdateReservationRequest, Reservation>().ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name.ToLowerInvariant()));

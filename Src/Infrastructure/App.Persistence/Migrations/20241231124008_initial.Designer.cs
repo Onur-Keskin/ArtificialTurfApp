@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace App.Persistence.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20241227141916_initial")]
+    [Migration("20241231124008_initial")]
     partial class initial
     {
         /// <inheritdoc />
@@ -24,6 +24,39 @@ namespace App.Persistence.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("App.Domain.Entities.Business", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Address")
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
+
+                    b.Property<DateTime>("Created")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("TownId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("Updated")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("TownId");
+
+                    b.ToTable("Businesses");
+                });
 
             modelBuilder.Entity("App.Domain.Entities.City", b =>
                 {
@@ -52,7 +85,7 @@ namespace App.Persistence.Migrations
                     b.ToTable("Cities");
                 });
 
-            modelBuilder.Entity("App.Domain.Entities.FootballField", b =>
+            modelBuilder.Entity("App.Domain.Entities.FieldSituation", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -63,30 +96,62 @@ namespace App.Persistence.Migrations
                     b.Property<DateTime>("Created")
                         .HasColumnType("datetime2");
 
-                    b.Property<bool>("IsAvailable")
+                    b.Property<DateTime>("EndTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("FootballFieldId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("IsReserv")
                         .HasColumnType("bit");
 
-                    b.Property<string>("Location")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(150)
-                        .HasColumnType("nvarchar(150)");
-
-                    b.Property<decimal>("PricePerHour")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<int>("TownId")
+                    b.Property<int>("ReservationId")
                         .HasColumnType("int");
+
+                    b.Property<DateTime>("StartTime")
+                        .HasColumnType("datetime2");
 
                     b.Property<DateTime?>("Updated")
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("TownId");
+                    b.HasIndex("FootballFieldId");
+
+                    b.ToTable("FieldSituations");
+                });
+
+            modelBuilder.Entity("App.Domain.Entities.FootballField", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("BusinessId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("BussinessId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("Created")
+                        .HasColumnType("datetime2");
+
+                    b.Property<decimal>("HourlyPricePerPerson")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
+
+                    b.Property<DateTime?>("Updated")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BusinessId");
 
                     b.ToTable("FootballFields", null, t =>
                         {
@@ -107,21 +172,15 @@ namespace App.Persistence.Migrations
                     b.Property<DateTime>("Created")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("EndTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("FootballFieldId")
+                    b.Property<int>("FieldSituationId")
                         .HasColumnType("int");
+
+                    b.Property<bool>("IsCancel")
+                        .HasColumnType("bit");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("StartTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<decimal>("TotalPrice")
-                        .HasColumnType("decimal(18,2)");
 
                     b.Property<DateTime?>("Updated")
                         .HasColumnType("datetime2");
@@ -131,7 +190,8 @@ namespace App.Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("FootballFieldId");
+                    b.HasIndex("FieldSituationId")
+                        .IsUnique();
 
                     b.HasIndex("UserId");
 
@@ -215,22 +275,44 @@ namespace App.Persistence.Migrations
                     b.HasAnnotation("SqlServer:UseSqlOutputClause", false);
                 });
 
-            modelBuilder.Entity("App.Domain.Entities.FootballField", b =>
+            modelBuilder.Entity("App.Domain.Entities.Business", b =>
                 {
                     b.HasOne("App.Domain.Entities.Town", "Town")
-                        .WithMany("FootballFields")
+                        .WithMany("Businesses")
                         .HasForeignKey("TownId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Town");
                 });
 
-            modelBuilder.Entity("App.Domain.Entities.Reservation", b =>
+            modelBuilder.Entity("App.Domain.Entities.FieldSituation", b =>
                 {
                     b.HasOne("App.Domain.Entities.FootballField", "FootballField")
-                        .WithMany("Reservations")
+                        .WithMany("FieldSituations")
                         .HasForeignKey("FootballFieldId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("FootballField");
+                });
+
+            modelBuilder.Entity("App.Domain.Entities.FootballField", b =>
+                {
+                    b.HasOne("App.Domain.Entities.Business", "Business")
+                        .WithMany("FootballFields")
+                        .HasForeignKey("BusinessId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Business");
+                });
+
+            modelBuilder.Entity("App.Domain.Entities.Reservation", b =>
+                {
+                    b.HasOne("App.Domain.Entities.FieldSituation", "FieldSituation")
+                        .WithOne("Reservation")
+                        .HasForeignKey("App.Domain.Entities.Reservation", "FieldSituationId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -240,7 +322,7 @@ namespace App.Persistence.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("FootballField");
+                    b.Navigation("FieldSituation");
 
                     b.Navigation("User");
                 });
@@ -256,19 +338,30 @@ namespace App.Persistence.Migrations
                     b.Navigation("City");
                 });
 
+            modelBuilder.Entity("App.Domain.Entities.Business", b =>
+                {
+                    b.Navigation("FootballFields");
+                });
+
             modelBuilder.Entity("App.Domain.Entities.City", b =>
                 {
                     b.Navigation("Towns");
                 });
 
+            modelBuilder.Entity("App.Domain.Entities.FieldSituation", b =>
+                {
+                    b.Navigation("Reservation")
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("App.Domain.Entities.FootballField", b =>
                 {
-                    b.Navigation("Reservations");
+                    b.Navigation("FieldSituations");
                 });
 
             modelBuilder.Entity("App.Domain.Entities.Town", b =>
                 {
-                    b.Navigation("FootballFields");
+                    b.Navigation("Businesses");
                 });
 
             modelBuilder.Entity("App.Domain.Entities.User", b =>

@@ -9,7 +9,9 @@ namespace App.Persistence
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {               
         }
+        public DbSet<Domain.Entities.Business> Businesses { get; set; } = default!;
         public DbSet<FootballField> FootballFields { get; set; } = default!;
+        public DbSet<FieldSituation> FieldSituations { get; set; } = default!;
         public DbSet<Reservation> Reservations { get; set; } = default!;
         public DbSet<User> Users { get; set; } = default!;
         public DbSet<Town> Towns { get; set; } = default!;

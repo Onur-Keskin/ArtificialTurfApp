@@ -9,6 +9,7 @@ namespace App.Application.Features.FootballFieds
     {
         Task<ServiceResult<List<FootballFieldDto>>> GetAllFieldsAsync();
         Task<ServiceResult<FootballFieldDto>> GetFieldByIdAsync(int id);
+        Task<ServiceResult<FootballFieldWithSituationsDto>> GetFieldWithSituationsAsync(int id);
         Task<ServiceResult<CreateFootballFieldResponse>> AddFieldAsync(CreateFootballFieldRequest request);
         Task<ServiceResult> UpdateFieldAsync(UpdateFootbaalFieldRequest request);
         Task<ServiceResult> DeleteFieldAsync(DeleteFootballFieldRequest request);

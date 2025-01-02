@@ -16,7 +16,7 @@ namespace App.API.Controllers
         public async Task<IActionResult> GetBusinessById(int id)
         => CreateActionResult(await businessService.GetBusinessByIdAsync(id));
 
-        [HttpGet("{id:int}/business")]
+        [HttpGet("{id:int}/fields")]
         public async Task<IActionResult> GetBusinessWithFields(int id)
             => CreateActionResult(await businessService.GetBusinessWithFieldsAsync(id));
 

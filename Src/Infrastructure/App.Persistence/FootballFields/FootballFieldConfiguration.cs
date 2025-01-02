@@ -11,7 +11,7 @@ namespace App.Persistence.FootballFields
             builder.HasKey(x => x.Id);
             builder.Property(x => x.Name).IsRequired().HasMaxLength(150);
             builder.Property(x => x.HourlyPricePerPerson).IsRequired().HasColumnType("decimal(18,2)");
-            builder.Property(x => x.BussinessId).IsRequired();
+            builder.Property(x => x.BusinessId).IsRequired();
         }
     }
 }

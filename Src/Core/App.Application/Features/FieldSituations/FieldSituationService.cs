@@ -15,7 +15,14 @@ namespace App.Application.Features.FieldSituations
     {
         public async Task<ServiceResult<CreateFieldSituationResponse>> AddFieldSituationAsync(CreateFieldSituationRequest request)
         {
-            var anyFieldSituationDate= await fieldSituationRepository.AnyAsync(x => x.FootballFieldId == request.FootballFieldId  && (x.StartTime == request.StartTime || x.EndTime == request.EndTime));
+            if (request.StartTime == null || request.EndTime == null)
+            {
+                throw new ArgumentNullException("StartTime veya EndTime değeri boş olamaz.");
+            }
+
+            var anyFieldSituationDate = await fieldSituationRepository.AnyAsync(x => x.FootballFieldId == request.FootballFieldId
+            && (x.StartTime == request.StartTime || x.EndTime == request.EndTime));
+
 
             if (anyFieldSituationDate)
             {
@@ -102,7 +109,8 @@ namespace App.Application.Features.FieldSituations
 
             var fieldSituation = mapper.Map<FieldSituation>(fieldSituationExist);
 
-            fieldSituation.Id = request.Id;
+            fieldSituation.IsReserv = request.IsReserv;
+            fieldSituation.ReservationId = request.Id;
 
             fieldSituationRepository.Update(fieldSituation);
             await unitOfWork.SaveChangeAsync();

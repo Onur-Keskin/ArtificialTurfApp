@@ -14,7 +14,7 @@ namespace App.Application.Features.FootballFieds
             CreateMap<FootballField, FootballFieldDto>().ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
                     .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
                     .ForMember(dest => dest.HourlyPricePerPerson, opt => opt.MapFrom(src => src.HourlyPricePerPerson))
-                    .ForMember(dest => dest.BusinessId, opt => opt.MapFrom(src => src.BussinessId)).ReverseMap();
+                    .ForMember(dest => dest.BusinessId, opt => opt.MapFrom(src => src.BusinessId)).ReverseMap();
 
             CreateMap<CreateFootballFieldRequest, FootballField>().ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name.ToLowerInvariant()));
             CreateMap<UpdateFootbaalFieldRequest, FootballField>().ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name.ToLowerInvariant()));

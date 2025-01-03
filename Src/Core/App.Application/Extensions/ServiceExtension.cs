@@ -3,6 +3,7 @@ using App.Application.Features.Cities;
 using App.Application.Features.FieldSituations;
 using App.Application.Features.FootballFieds;
 using App.Application.Features.Reservations;
+using App.Application.Features.Token;
 using App.Application.Features.Towns;
 using App.Application.Features.Users;
 using FluentValidation;
@@ -27,6 +28,7 @@ namespace App.Application.Extensions
             services.AddScoped<ITownService, TownService>();
             services.AddScoped<ICityService, CityService>();
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<ITokenService, TokenService>();
 
 
             services.AddFluentValidationAutoValidation();

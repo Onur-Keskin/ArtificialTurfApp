@@ -1,7 +1,10 @@
 ﻿using App.Application.Contracts.Persistence;
+using App.Application.Features.Token;
 using App.Application.Features.Users.Create;
 using App.Application.Features.Users.Delete;
 using App.Application.Features.Users.Dto;
+using App.Application.Features.Users.Login;
+using App.Application.Features.Users.Register;
 using App.Application.Features.Users.Update;
 using App.Domain.Entities;
 using AutoMapper;
@@ -9,7 +12,7 @@ using System.Net;
 
 namespace App.Application.Features.Users
 {
-    public class UserService(IUserRepository userRepository, IUnitOfWork unitOfWork, IMapper mapper) : IUserService
+    public class UserService(IUserRepository userRepository, ITokenService tokenService, IUnitOfWork unitOfWork, IMapper mapper) : IUserService
     {
         public async Task<ServiceResult<CreateUserResponse>> AddUserAsync(CreateUserRequest request)
         {
@@ -28,6 +31,38 @@ namespace App.Application.Features.Users
             await unitOfWork.SaveChangeAsync();
 
             return ServiceResult<CreateUserResponse>.SuccessAsCreated(new CreateUserResponse(user.Id), $"api/towns/{user.Id}");
+        }
+
+        public async Task<ServiceResult<string>> AuthenticateAsync(LoginRequest loginRequest)
+        {
+            var user = userRepository.GetUserByEmail(loginRequest.Email);
+
+            if (user == null || !BCrypt.Net.BCrypt.Verify(loginRequest.Password, user.Result.PasswordHash))
+            {
+                throw new UnauthorizedAccessException("Bilgiler hatalı");
+            }
+
+            var token = tokenService.GenerateToken(user.Result);
+            return ServiceResult<string>.Success(token);
+        }
+
+        public async Task<ServiceResult<bool>> RegisterAsync(RegisterRequest registerRequest)
+        {
+            var isExistUser = await userRepository.AnyAsync(u => u.Email == registerRequest.Email);
+            if (isExistUser)
+            {
+                return ServiceResult<bool>.Fail("Bu kullanıcı zaten alınmış");
+            }
+
+            var user = mapper.Map<User>(registerRequest);
+
+            user.PasswordHash = BCrypt.Net.BCrypt.HashPassword(registerRequest.Password);
+            user.Role = "User Admin";
+
+            await userRepository.AddAsync(user);
+            await unitOfWork.SaveChangeAsync();
+
+            return ServiceResult<bool>.Success(true);
         }
 
         public async Task<ServiceResult> DeleteUserAsync(DeleteUserRequest request)
@@ -108,7 +143,6 @@ namespace App.Application.Features.Users
 
             return ServiceResult<UserWithReservationsDto>.Success(userWithReservationsAsDto);
         }
-
         public async Task<ServiceResult> UpdateUserAsync(UpdateUserRequest request)
         {
             var isUserNameExist = await userRepository.AnyAsync(x => x.Name == request.Name && x.Id != request.Id);

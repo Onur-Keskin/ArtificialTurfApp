@@ -1,7 +1,8 @@
-﻿using App.Application.Features.Towns.Dto;
-using App.Application.Features.Users.Create;
+﻿using App.Application.Features.Users.Create;
 using App.Application.Features.Users.Delete;
 using App.Application.Features.Users.Dto;
+using App.Application.Features.Users.Login;
+using App.Application.Features.Users.Register;
 using App.Application.Features.Users.Update;
 
 namespace App.Application.Features.Users
@@ -16,5 +17,7 @@ namespace App.Application.Features.Users
         Task<ServiceResult<CreateUserResponse>> AddUserAsync(CreateUserRequest request);
         Task<ServiceResult> UpdateUserAsync(UpdateUserRequest request);
         Task<ServiceResult> DeleteUserAsync(DeleteUserRequest request);
+        Task<ServiceResult<string>> AuthenticateAsync(LoginRequest loginRequest);
+        Task<ServiceResult<bool>> RegisterAsync(RegisterRequest registerRequest);
     }
 }

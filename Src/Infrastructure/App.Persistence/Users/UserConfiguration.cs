@@ -11,6 +11,7 @@ namespace App.Persistence.Users
             builder.HasKey(x => x.Id);
             builder.Property(x => x.Name).IsRequired().HasMaxLength(150);
             builder.Property(x => x.Email).IsRequired().HasMaxLength(150);
+            builder.Property(x => x.PasswordHash).IsRequired().HasMaxLength(150);
             builder.Property(x => x.PhoneNumber).IsRequired().HasMaxLength(10);
             builder.Property(x => x.Role).IsRequired();
         }

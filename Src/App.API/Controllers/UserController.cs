@@ -21,7 +21,7 @@ namespace App.API.Controllers
             => CreateActionResult(await userService.GetUserWithReservations(id));
 
         [HttpPost]
-        public async Task<IActionResult> CreateUSer(CreateUserRequest request)
+        public async Task<IActionResult> CreateUser(CreateUserRequest request)
             => CreateActionResult(await userService.AddUserAsync(request));
 
         [HttpPut]

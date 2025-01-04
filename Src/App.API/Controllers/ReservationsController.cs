@@ -2,6 +2,7 @@
 using App.Application.Features.Reservations.Create;
 using App.Application.Features.Reservations.Delete;
 using App.Application.Features.Reservations.Update;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace App.API.Controllers
@@ -20,16 +21,24 @@ namespace App.API.Controllers
         public async Task<IActionResult> GetByReservationByUser(GetReservationsByUserIdRequest request)
             => CreateActionResult(await reservationService.GetReservationsByUserId(request));
 
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> CreateReservation(CreateReservationRequest request)
             => CreateActionResult(await reservationService.AddReservationAsync(request));
 
-        [HttpPut("{id:int}")]
-        public async Task<IActionResult> UpdateReservation(int id, UpdateReservationRequest request)
-            => CreateActionResult(await reservationService.UpdateFieldAsync(request));
+        [Authorize]
+        [HttpPut]
+        public async Task<IActionResult> UpdateReservation(UpdateReservationRequest request)
+            => CreateActionResult(await reservationService.UpdateReservationAsync(request));
 
+        [Authorize]
+        [HttpPut("cancelReservation")]
+        public async Task<IActionResult> CanelReservation(CancelReservationRequest request)
+            => CreateActionResult(await reservationService.CancelReservationAsync(request));
+
+        [Authorize]
         [HttpDelete]
-        public async Task<IActionResult> DeleteReservation(int id, DeleteReservationRequest request)
+        public async Task<IActionResult> DeleteReservation(DeleteReservationRequest request)
             => CreateActionResult(await reservationService.DeleteReservationAsync(request));
     }
 }

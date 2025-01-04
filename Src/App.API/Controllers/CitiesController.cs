@@ -4,6 +4,7 @@ using App.Application.Features.Cities.Update;
 using App.Application.Features.Cities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 
 namespace App.API.Controllers
 {
@@ -21,14 +22,17 @@ namespace App.API.Controllers
         public async Task<IActionResult> GetCityWithTowns(int id)
             => CreateActionResult(await cityService.GetCityWithTownsAsync(id));
 
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<IActionResult> CreateCity(CreateCityRequest request)
             => CreateActionResult(await cityService.AddCityAsync(request));
 
+        [Authorize(Roles = "Admin")]
         [HttpPut]
         public async Task<IActionResult> UpdateCity(UpdateCityRequest request)
         => CreateActionResult(await cityService.UpdateCityAsync(request));
 
+        [Authorize(Roles = "Admin")]
         [HttpDelete]
         public async Task<IActionResult> DeleteCity(DeleteCityRequest request)
             => CreateActionResult(await cityService.DeleteCityAsync(request));

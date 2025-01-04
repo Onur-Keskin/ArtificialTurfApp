@@ -98,6 +98,7 @@ namespace App.Application.Features.FieldSituations
             return ServiceResult.Success(HttpStatusCode.NoContent);
         }
 
+        //Belirtilen sahanın o saatlik seansını rezerve eder
         public async Task<ServiceResult> UpdateFieldSituationReserveAsync(UpdateFieldSituationReservRequest request)
         {
             var fieldSituationExist = await fieldSituationRepository.GetByIdAsync(request.Id);
@@ -109,7 +110,7 @@ namespace App.Application.Features.FieldSituations
 
             var fieldSituation = mapper.Map<FieldSituation>(fieldSituationExist);
 
-            fieldSituation.IsReserv = request.IsReserv;
+            fieldSituation.IsReserv = true;
             fieldSituation.ReservationId = request.Id;
 
             fieldSituationRepository.Update(fieldSituation);

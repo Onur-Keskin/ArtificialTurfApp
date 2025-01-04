@@ -9,7 +9,7 @@ using System.Net;
 
 namespace App.Application.Features.Reservations
 {
-    public class ReservationService(IReservationRepository reservationRepository, IUnitOfWork unitOfWork, IMapper mapper) : IReservationService
+    public class ReservationService(IReservationRepository reservationRepository,IFieldSituationRepository fieldSituationRepository, IUnitOfWork unitOfWork, IMapper mapper) : IReservationService
     {
         public async Task<ServiceResult<CreateReservationResponse>> AddReservationAsync(CreateReservationRequest request)
         {
@@ -28,6 +28,32 @@ namespace App.Application.Features.Reservations
             await unitOfWork.SaveChangeAsync();
 
             return ServiceResult<CreateReservationResponse>.SuccessAsCreated(new CreateReservationResponse(reservation.Id), $"api/reservations/{reservation.Id}");
+        }
+
+        public async Task<ServiceResult> CancelReservationAsync(CancelReservationRequest request)
+        {
+            var reservationExist = await reservationRepository.GetByIdAsync(request.Id);
+            
+            var fieldSituationExist = await fieldSituationRepository.GetByIdAsync(request.Id);
+
+            if (reservationExist is not null && reservationExist.IsCancel == true)
+            {
+                return ServiceResult.Fail("Bu rezervasyon zaten iptal edilmiş ... ", HttpStatusCode.NotFound);
+            }
+
+            var reservation = mapper.Map<Reservation>(reservationExist);
+            var fieldSituation = mapper.Map<FieldSituation>(fieldSituationExist);
+
+            reservation.IsCancel = true;
+            fieldSituation.IsReserv = false;
+            fieldSituation.ReservationId = 0;
+
+            reservationRepository.Update(reservation);
+            fieldSituationRepository.Update(fieldSituation);
+            reservationRepository.Delete(reservation);
+            await unitOfWork.SaveChangeAsync();
+
+            return ServiceResult.Success(HttpStatusCode.NoContent);
         }
 
         public async Task<ServiceResult> DeleteReservationAsync(DeleteReservationRequest request)
@@ -86,7 +112,7 @@ namespace App.Application.Features.Reservations
             return ServiceResult<ReservationDto>.Success(reservationAsDto)!;
         }
 
-        public async Task<ServiceResult> UpdateFieldAsync(UpdateReservationRequest request)
+        public async Task<ServiceResult> UpdateReservationAsync(UpdateReservationRequest request)
         {
             var isReservationNameExist = await reservationRepository.AnyAsync(x => x.Name == request.Name && x.Id != request.Id);
 
@@ -102,5 +128,7 @@ namespace App.Application.Features.Reservations
 
             return ServiceResult.Success(HttpStatusCode.NoContent);
         }
+
+
     }
 }

@@ -11,7 +11,8 @@ namespace App.Application.Features.Reservations
         Task<ServiceResult<ReservationDto>> GetReservationByIdAsync(int id);
         Task<ServiceResult<ReservationDto>> GetReservationsByUserId(GetReservationsByUserIdRequest request);
         Task<ServiceResult<CreateReservationResponse>> AddReservationAsync(CreateReservationRequest request);
-        Task<ServiceResult> UpdateFieldAsync(UpdateReservationRequest request);
+        Task<ServiceResult> UpdateReservationAsync(UpdateReservationRequest request);
+        Task<ServiceResult> CancelReservationAsync(CancelReservationRequest request);
         Task<ServiceResult> DeleteReservationAsync(DeleteReservationRequest request);
     }
 }

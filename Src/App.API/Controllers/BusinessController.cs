@@ -2,6 +2,7 @@
 using App.Application.Features.Business.Create;
 using App.Application.Features.Business.Delete;
 using App.Application.Features.Business.Update;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace App.API.Controllers
@@ -20,14 +21,17 @@ namespace App.API.Controllers
         public async Task<IActionResult> GetBusinessWithFields(int id)
             => CreateActionResult(await businessService.GetBusinessWithFieldsAsync(id));
 
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> CreateBusiness(CreateBusinessRequest request)
             => CreateActionResult(await businessService.AddBusinessAsync(request));
 
+        [Authorize]
         [HttpPut]
         public async Task<IActionResult> UpdateBussiness(UpdateBussinessRequest request)
         => CreateActionResult(await businessService.UpdateBusinessAsync(request));
 
+        [Authorize]
         [HttpDelete]
         public async Task<IActionResult> DeleteBusiness(DeleteBusinessRequest request)
             => CreateActionResult(await businessService.DeleteBusinessAsync(request));

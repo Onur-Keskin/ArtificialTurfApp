@@ -2,6 +2,7 @@
 using App.Application.Features.FieldSituations.Create;
 using App.Application.Features.FieldSituations.Delete;
 using App.Application.Features.FieldSituations.Update;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace App.API.Controllers
@@ -16,15 +17,18 @@ namespace App.API.Controllers
         public async Task<IActionResult> GetFieldSituationById(int id)
         => CreateActionResult(await fieldSituationService.GetFieldSituationByIdAsync(id));
 
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> CreateFieldSituation(CreateFieldSituationRequest request)
         => CreateActionResult(await fieldSituationService.AddFieldSituationAsync(request));
 
+        [Authorize]
         [HttpPut]
         public async Task<IActionResult> UpdateFieldSituation(UpdateFieldSituationRequest request)
         => CreateActionResult(await fieldSituationService.UpdateFieldSituationAsync(request));
         
-        [HttpPut("Reserv")]
+        [Authorize]
+        [HttpPut("Reserv")]//Sahayı rezerve etme
         public async Task<IActionResult> UpdateFieldSituationReserv(UpdateFieldSituationReservRequest request)
         => CreateActionResult(await fieldSituationService.UpdateFieldSituationReserveAsync(request));
 

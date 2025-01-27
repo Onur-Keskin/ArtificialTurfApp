@@ -18,7 +18,7 @@ namespace App.API.Controllers
             => CreateActionResult(await reservationService.GetReservationByIdAsync(id));
 
         [HttpGet("user")]
-        public async Task<IActionResult> GetByReservationByUser(GetReservationsByUserIdRequest request)
+        public async Task<IActionResult> GetByReservationByUser([FromQuery]GetReservationsByUserIdRequest request)
             => CreateActionResult(await reservationService.GetReservationsByUserId(request));
 
         [Authorize]

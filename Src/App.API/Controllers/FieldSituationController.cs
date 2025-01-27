@@ -1,6 +1,7 @@
 ﻿using App.Application.Features.FieldSituations;
 using App.Application.Features.FieldSituations.Create;
 using App.Application.Features.FieldSituations.Delete;
+using App.Application.Features.FieldSituations.Get;
 using App.Application.Features.FieldSituations.Update;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -16,6 +17,10 @@ namespace App.API.Controllers
         [HttpGet("{id:int}")]
         public async Task<IActionResult> GetFieldSituationById(int id)
         => CreateActionResult(await fieldSituationService.GetFieldSituationByIdAsync(id));
+
+        [HttpGet("Date")]
+        public async Task<IActionResult> GetFieldSituationByDate([FromQuery]GetFiedlSituationByDateRequest request)
+        => CreateActionResult(await fieldSituationService.GetFieldSituationByDateAsync(request));
 
         [Authorize]
         [HttpPost]

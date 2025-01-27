@@ -17,6 +17,10 @@ namespace App.API.Controllers
         public async Task<IActionResult> GetFootballFieldById(int id) 
             => CreateActionResult(await footballFieldService.GetFieldByIdAsync(id));
 
+        [HttpGet("{id:int}/fieldSituations")]
+        public async Task<IActionResult> GetFieldWithSituations(int id)
+            => CreateActionResult(await footballFieldService.GetFieldWithSituationsAsync(id));
+
         [Authorize]
         [HttpPost]
         public async Task<IActionResult> CreateFootballField(CreateFootballFieldRequest request) 

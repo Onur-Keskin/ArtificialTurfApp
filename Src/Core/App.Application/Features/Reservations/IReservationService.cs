@@ -9,7 +9,7 @@ namespace App.Application.Features.Reservations
     {
         Task<ServiceResult<List<ReservationDto>>> GetAllReservationsAsync();
         Task<ServiceResult<ReservationDto>> GetReservationByIdAsync(int id);
-        Task<ServiceResult<ReservationDto>> GetReservationsByUserId(GetReservationsByUserIdRequest request);
+        Task<ServiceResult<List<ReservationDto>>> GetReservationsByUserId(GetReservationsByUserIdRequest request);
         Task<ServiceResult<CreateReservationResponse>> AddReservationAsync(CreateReservationRequest request);
         Task<ServiceResult> UpdateReservationAsync(UpdateReservationRequest request);
         Task<ServiceResult> CancelReservationAsync(CancelReservationRequest request);

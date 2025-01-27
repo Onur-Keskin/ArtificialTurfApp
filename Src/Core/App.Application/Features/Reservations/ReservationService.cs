@@ -34,7 +34,7 @@ namespace App.Application.Features.Reservations
         {
             var reservationExist = await reservationRepository.GetByIdAsync(request.Id);
             
-            var fieldSituationExist = await fieldSituationRepository.GetByIdAsync(request.Id);
+            var fieldSituationExist = await fieldSituationRepository.GetByIdAsync(request.FieldSituationId);
 
             if (reservationExist is not null && reservationExist.IsCancel == true)
             {
@@ -45,6 +45,7 @@ namespace App.Application.Features.Reservations
             var fieldSituation = mapper.Map<FieldSituation>(fieldSituationExist);
 
             reservation.IsCancel = true;
+            
             fieldSituation.IsReserv = false;
             fieldSituation.ReservationId = 0;
 
@@ -98,18 +99,18 @@ namespace App.Application.Features.Reservations
             return ServiceResult<ReservationDto>.Success(reservationAsDto)!;
         }
 
-        public async Task<ServiceResult<ReservationDto>> GetReservationsByUserId(GetReservationsByUserIdRequest request)
+        public async Task<ServiceResult<List<ReservationDto>>> GetReservationsByUserId(GetReservationsByUserIdRequest request)
         {
-            var reservation = await reservationRepository.GetByIdAsync(request.UserId);
+            var reservation = await reservationRepository.GetReservationsByUserId(request.UserId);
 
             if (reservation is null)
             {
-                return ServiceResult<ReservationDto?>.Fail("Kullanıcıya ait rezervasyon bulunamadı", HttpStatusCode.NotFound);
+                return ServiceResult<List<ReservationDto?>>.Fail("Kullanıcıya ait rezervasyon bulunamadı", HttpStatusCode.NotFound);
             }
 
-            var reservationAsDto = mapper.Map<ReservationDto>(reservation);
+            var reservationAsDto = mapper.Map<List<ReservationDto>>(reservation);
 
-            return ServiceResult<ReservationDto>.Success(reservationAsDto)!;
+            return ServiceResult<List<ReservationDto>>.Success(reservationAsDto)!;
         }
 
         public async Task<ServiceResult> UpdateReservationAsync(UpdateReservationRequest request)

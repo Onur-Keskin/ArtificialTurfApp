@@ -24,7 +24,14 @@ namespace App.Application.Features.Users
             CreateMap<UpdateUserRequest, User>().ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name.ToLowerInvariant()));
             CreateMap<DeleteUserRequest, User>().ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id));
 
-            CreateMap<User, UserWithReservationsDto>().ReverseMap();
+            CreateMap<User, UserWithReservationsDto>()
+                .ForCtorParam("Id", opt => opt.MapFrom(src => src.Id))
+                .ForCtorParam("Name", opt => opt.MapFrom(src => src.Name))
+                .ForCtorParam("Email", opt => opt.MapFrom(src => src.Email))
+                .ForCtorParam("MobilePhoneNumber", opt => opt.MapFrom(src => src.PhoneNumber))
+                .ForCtorParam("Role", opt => opt.MapFrom(src => src.Role))
+                .ForCtorParam("Reservations", opt => opt.MapFrom(src => src.Reservations));
+
         }
     }
 }

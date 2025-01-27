@@ -1,3 +1,3 @@
 ﻿namespace App.Application.Features.Reservations.Update;
-public record CancelReservationRequest(int Id);
+public record CancelReservationRequest(int Id,int FieldSituationId);
 

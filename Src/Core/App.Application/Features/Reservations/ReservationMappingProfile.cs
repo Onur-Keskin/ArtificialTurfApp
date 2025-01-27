@@ -11,11 +11,13 @@ namespace App.Application.Features.Reservations
     {
         public ReservationMappingProfile()
         {
-            CreateMap<Reservation, ReservationDto>().ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
-                    .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
-                    .ForMember(dest => dest.UserId, opt => opt.MapFrom(src => src.UserId))
-                    .ForMember(dest => dest.IsCancel, opt => opt.MapFrom(src => src.IsCancel))
-                    .ForMember(dest => dest.FieldSituationId, opt => opt.MapFrom(src => src.FieldSituationId));
+            //CreateMap<Reservation, ReservationDto>().ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
+            //        .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
+            //        .ForMember(dest => dest.UserId, opt => opt.MapFrom(src => src.UserId))
+            //        .ForMember(dest => dest.IsCancel, opt => opt.MapFrom(src => src.IsCancel))
+            //        .ForMember(dest => dest.FieldSituationId, opt => opt.MapFrom(src => src.FieldSituationId)).ReverseMap();
+
+            CreateMap<Reservation, ReservationDto>().ReverseMap();
 
             CreateMap<CreateReservationRequest, Reservation>().ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name.ToLowerInvariant()));
             CreateMap<UpdateReservationRequest, Reservation>().ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name.ToLowerInvariant()));

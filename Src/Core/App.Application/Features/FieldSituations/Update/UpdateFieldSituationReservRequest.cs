@@ -1,3 +1,3 @@
 ﻿namespace App.Application.Features.FieldSituations.Update;
-public record UpdateFieldSituationReservRequest(int Id);
+public record UpdateFieldSituationReservRequest(int Id, int ReservationId);
 

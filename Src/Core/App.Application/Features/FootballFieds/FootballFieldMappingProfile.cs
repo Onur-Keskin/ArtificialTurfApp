@@ -20,6 +20,8 @@ namespace App.Application.Features.FootballFieds
             CreateMap<UpdateFootbaalFieldRequest, FootballField>().ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name.ToLowerInvariant()));
             CreateMap<DeleteFootballFieldRequest, FootballField>().ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id));
 
+            CreateMap<FootballField, FootballFieldWithSituationsDto>().ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id));
+
         }
     }
 }

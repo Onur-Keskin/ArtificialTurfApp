@@ -2,9 +2,8 @@
 using App.Application.Features.FieldSituations.Create;
 using App.Application.Features.FieldSituations.Delete;
 using App.Application.Features.FieldSituations.Dto;
+using App.Application.Features.FieldSituations.Get;
 using App.Application.Features.FieldSituations.Update;
-using App.Application.Features.FootballFieds.Create;
-using App.Application.Features.FootballFieds.Dto;
 using App.Domain.Entities;
 using AutoMapper;
 using System.Net;
@@ -65,6 +64,20 @@ namespace App.Application.Features.FieldSituations
             return ServiceResult<List<FieldSituationDto>>.Success(fieldSituationsAsDto);
         }
 
+        public async Task<ServiceResult<FieldSituationDto>> GetFieldSituationByDateAsync(GetFiedlSituationByDateRequest request)
+        {
+            var fieldSituation = await fieldSituationRepository.GetFieldSituationByDate(request.Id, request.Date);
+
+            if (fieldSituation is null)
+            {
+                return ServiceResult<FieldSituationDto?>.Fail("Saha durumu bulunamadı.", HttpStatusCode.NotFound);
+            }
+
+            var fieldSituationAsDto = mapper.Map<FieldSituationDto>(fieldSituation);
+
+            return ServiceResult<FieldSituationDto>.Success(fieldSituationAsDto);
+        }
+
         public async Task<ServiceResult<FieldSituationDto>> GetFieldSituationByIdAsync(int id)
         {
             var fieldSituation = await fieldSituationRepository.GetByIdAsync(id);
@@ -111,7 +124,8 @@ namespace App.Application.Features.FieldSituations
             var fieldSituation = mapper.Map<FieldSituation>(fieldSituationExist);
 
             fieldSituation.IsReserv = true;
-            fieldSituation.ReservationId = request.Id;
+            fieldSituation.ReservationId = request.ReservationId;
+            fieldSituation.Updated = DateTime.Now;
 
             fieldSituationRepository.Update(fieldSituation);
             await unitOfWork.SaveChangeAsync();
